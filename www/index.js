@@ -1,3 +1,7 @@
 import * as wasm from "rust-wasm";
 
-wasm.greet();
+document.getElementById("submit").addEventListener("click", ()=>{
+    var inText = document.getElementById("text").value;
+    wasm.greet(inText);
+}
+);
