@@ -20,8 +20,8 @@ module.exports = (env, args) => {
                 crateDirectory: path.resolve(__dirname, '.')
             }),
             new webpack.ProvidePlugin({
-                TextEncoder: ['text-encoding', 'TextEncoder'],
-                TextDecoder: ['text-decoding', 'TextDecoder']
+                TextDecoder: ['text-encoding', 'TextDecoder'],
+                TextEncoder: ['text-encoding', 'TextEncoder']
             })
         ]
     }
