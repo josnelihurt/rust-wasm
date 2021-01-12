@@ -4,13 +4,19 @@ const canvas = document.getElementById('mainCanvas')
 const gl = canvas.getContext('webgl', {antialias: true});
 
 rust.then( m => {
+    document.getElementById("submit").addEventListener("click", () => {
+            var inText = document.getElementById("text").value;
+            m.greet(inText);
+        });
+
     if(!gl){
         alert('WebGL is not working as expected!')
         return;
     }
 
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    // Moved to gl_setup.rs
+    // gl.enable(gl.BLEND);
+    // gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
     const FPS_THROTTLE = 1000.0 / 30.0; // ms/fps
     var lastDrawTime = -1;
@@ -50,8 +56,3 @@ rust.then( m => {
 });
 
 
-// document.getElementById("submit").addEventListener("click", ()=>{
-//     var inText = document.getElementById("text").value;
-//     wasm.greet(inText);
-// }
-// );
