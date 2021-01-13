@@ -8,7 +8,8 @@ rust.then( m => {
             var inText = document.getElementById("text").value;
             m.greet(inText);
         });
-
+    
+    
     if(!gl){
         alert('WebGL is not working as expected!')
         return;
@@ -19,9 +20,11 @@ rust.then( m => {
     // gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
     const FPS_THROTTLE = 1000.0 / 30.0; // ms/fps
-    var lastDrawTime = -1;
+    let lastDrawTime = -1;
     glClient = new m.GlClient();
     const initialTime = Date.now();
+    let lastWidth = 0;
+    let lastHeight = 0;
 
     function render(){
         window.requestAnimationFrame(render);
@@ -31,28 +34,27 @@ rust.then( m => {
             lastDrawTime = currentTime;
 
             //resize window handler
-            if(window.innerHeight != canvas.height || window.innerWidth != canvas.width){
-                windowWidth = window.innerWidth ;//- 50;
-                canvas.width = windowWidth;
-                canvas.clientWidth = windowWidth;
-                canvas.style.width = windowWidth;
+            if (lastWidth != canvas.clientWidth || lastHeight != canvas.width){
+                lastWidth = canvas.clientWidth;
+                lastHeight = canvas.clientHeight;
 
-                windowHeight = window.innerHeight ;//- 200;
-                canvas.height = windowHeight;
-                canvas.clientHeight = windowHeight;
-                canvas.style.height = windowHeight; 
+                width = window.innerWidth;
+                canvas.width = width;
+                canvas.style.width = width;
 
+                height = window.innerHeight;
+                canvas.height = height;
+                canvas.style.height = height; 
 
-                gl.viewport(0, 0, windowWidth, windowHeight);
+                gl.viewport(0, 0, width, height);
             }
 
             let elapseTime = currentTime - initialTime;
-            glClient.update(elapseTime, window.innerWidth, window.innerHeight);
+            glClient.update(elapseTime, canvas.clientWidth, canvas.clientHeight);
             glClient.render();
         }
     }
 
     render();
 });
-
 
