@@ -47,7 +47,7 @@ rust.then( m => {
             }
 
             let elapseTime = currentTime - initialTime;
-            glClient.update(elapseTime, window.innerWidth,window.innerHeight);
+            glClient.update(elapseTime, window.innerWidth, window.innerHeight);
             glClient.render();
         }
     }

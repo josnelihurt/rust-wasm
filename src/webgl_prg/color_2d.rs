@@ -22,9 +22,9 @@ impl Color2D {
         ).unwrap();
 
         let points : [f32; 6] = [
-            -0.5, 0.5, //x,y
-            0.0, -0.5,
-            0.5, 0.5,
+            0.0, 0.0, //x,y
+            1.0, 0.0,
+            1.0, 1.0,
         ];
 
         let mem_buf = wasm_bindgen::memory()
@@ -86,7 +86,7 @@ impl Color2D {
 
             let transform_matrix = cf::mult_matrix_4(
                 scale_matrix,
-                 translation_matrix);
+                translation_matrix);
             gl.uniform_matrix4fv_with_f32_array(
                 Some(&self.u_transform),
                 false,
