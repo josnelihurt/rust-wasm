@@ -53,15 +53,16 @@ impl GlClient{
 
         let current_state = app_state::get_current_state();
 
-        self.prg_color_2d.render(&self.gl, 
-            0.0,
-            10.0,
-            0.0,
-            10.0, 
-            10.0,
-            10.0,
-            //current_state.canvas_width,
-            //current_state.canvas_height
+        self.prg_color_2d.render( 
+                &self.gl,
+                current_state.control_bottom,
+                // 0.,
+                current_state.control_top,
+                current_state.control_left,
+                current_state.control_right,
+                // 12.,
+                current_state.canvas_width,
+                current_state.canvas_height,
         );
     }
 }

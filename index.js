@@ -32,12 +32,12 @@ rust.then( m => {
 
             //resize window handler
             if(window.innerHeight != canvas.height || window.innerWidth != canvas.width){
-                windowWidth = window.innerWidth - 50;
+                windowWidth = window.innerWidth ;//- 50;
                 canvas.width = windowWidth;
                 canvas.clientWidth = windowWidth;
                 canvas.style.width = windowWidth;
 
-                windowHeight = window.innerHeight - 200;
+                windowHeight = window.innerHeight ;//- 200;
                 canvas.height = windowHeight;
                 canvas.clientHeight = windowHeight;
                 canvas.style.height = windowHeight; 
