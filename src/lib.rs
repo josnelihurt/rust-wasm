@@ -45,7 +45,7 @@ impl GlClient{
     }
     
     pub fn update(&mut self, time: f32, width: f32, height: f32) -> Result<(), JsValue>{
-        log(format!("{} update width {} height {}", time, width, height).as_str());
+        // log(format!("{} update width {} height {}", time, width, height).as_str());
         app_state::update_dynamic_data(time, width, height);
         Ok(())
     }

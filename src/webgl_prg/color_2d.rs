@@ -23,13 +23,10 @@ impl Color2D {
             super::super::shaders::fragment::color_2d::SHADER,
         ).unwrap();
 
-        let vertices_rect: [f32; 12] = [
-            0., 1., // x, y
-            0., 0., // x, y
-            1., 1., // x, y
-            1., 1., // x, y
-            0., 0., // x, y
-            1., 0., // x, y
+        let vertices_rect: [f32; 6] = [
+            0.0, 1., // x, y
+            0.5, 0., // x, y
+            1.0, 1., // x, y
         ];
 
         let memory_buffer = wasm_bindgen::memory()
@@ -73,9 +70,9 @@ impl Color2D {
 
         gl.uniform4f(
             Some(&self.u_color),
-            0., //r
-            0.6,//g
-            0.0,//b
+            0.1, //r
+            0.1,//g
+            0.3,//b
             1.0,//a
         );
 
