@@ -3,6 +3,7 @@ use web_sys::WebGlRenderingContext as GL;
 use web_sys::*;
 use js_sys::WebAssembly;
 use super::super::common_fns as cf;
+use super::super::entities::*;
 
 #[allow(dead_code)]
 pub struct Color2DGradient {
@@ -92,6 +93,7 @@ impl Color2DGradient {
         right: f32,
         canvas_width: f32,
         canvas_height: f32,
+        color: [Color; 5],
     ) {
         gl.use_program(Some(&self.program));
 
@@ -105,11 +107,11 @@ impl Color2DGradient {
 
         //This should be as many vertex you have, each one must have a color
         let colors: [f32; 20] = [
-            1., 0., 0., 0.8, //rgba
-            0., 1., 0., 0.9, //rgba
-            1., 1., 0., 0.9, //rgba
-            1., 0., 1., 0.9, //rgba
-            0., 1., 1., 0.9, //rgba
+            color[0].R as f32 / 256., color[0].G as f32 / 256.,color[0].B as f32 / 256., 0.8, //rgba
+            color[1].R as f32 / 256., color[1].G as f32 / 256.,color[1].B as f32 / 256., 0.9, //rgba
+            color[2].R as f32 / 256., color[2].G as f32 / 256.,color[2].B as f32 / 256., 0.9, //rgba
+            color[3].R as f32 / 256., color[3].G as f32 / 256.,color[3].B as f32 / 256., 0.9, //rgba
+            color[4].R as f32 / 256., color[4].G as f32 / 256.,color[4].B as f32 / 256., 0.9, //rgba
         ];
 
         let color_memory_buffer = wasm_bindgen::memory()

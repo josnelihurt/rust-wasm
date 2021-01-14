@@ -4,6 +4,7 @@
       <link rel="icon" href="data:;base64,iVBORwOKGO="/>
     <meta charset="utf-8">
     <link rel="stylesheet" href="main.css">
+    <script src="https://kit.fontawesome.com/6df2d6dede.js" crossorigin="anonymous"></script>
     <title>Hello wasm-pack!</title>
   </head>
   <body>
@@ -17,7 +18,20 @@
         </div>
       </div>
     </section>
-    <canvas id="mainCanvas"></canvas>
+    <section>
+      <div id="2d-controls">
+        <h3>Pick some controls for WebGL rendering, alpha changes are not allowed</h3>
+        <i class="fas fa-caret-down"></i>
+        <input type="color" id="triangle" value="#0101A0">
+        
+        <input type="color" id="gradient0" value="#ff00d7">
+        <input type="color" id="gradient1" value="#ff0000">
+        <input type="color" id="gradient2" value="#ffff00">
+        <input type="color" id="gradient3" value="#00FF00">
+        <input type="color" id="gradient4" value="#00FFFF">
+      </div>
+      <canvas id="mainCanvas"></canvas>
+    </section>
     <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
     <!-- <script src="./bootstrap.js"></script> -->
   </body>

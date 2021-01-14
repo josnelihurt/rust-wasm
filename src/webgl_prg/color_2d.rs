@@ -3,6 +3,7 @@ use web_sys::WebGlRenderingContext as GL;
 use web_sys::*;
 use js_sys::WebAssembly;
 use super::super::common_fns as cf;
+use super::super::entities::*;
 
 #[allow(dead_code)]
 pub struct Color2D {
@@ -61,6 +62,7 @@ impl Color2D {
         right: f32,
         canvas_width: f32,
         canvas_height: f32,
+        color: Color,
     ) {
         gl.use_program(Some(&self.program));
 
@@ -70,9 +72,9 @@ impl Color2D {
 
         gl.uniform4f(
             Some(&self.u_color),
-            0.1, //r
-            0.1,//g
-            0.3,//b
+            color.R as f32 / 256., //r
+            color.G as f32 / 256.,//g
+            color.B as f32 / 256.,//b
             1.0,//a
         );
 
