@@ -2,7 +2,6 @@ extern crate wasm_bindgen;
 use wasm_bindgen::prelude::*;
 use web_sys::*;
 use web_sys::WebGlRenderingContext as Gl;
-use std::fmt;
 
 #[macro_use]
 extern crate lazy_static;
@@ -28,6 +27,7 @@ pub fn greet(msg: &str) {
 #[wasm_bindgen]
 pub struct GlClient {
     prg_color_2d: webgl_prg::Color2D,
+    prg_color_2d_gradient: webgl_prg::Color2DGradient,
     gl: WebGlRenderingContext,
 }
 
@@ -40,6 +40,7 @@ impl GlClient{
         let gl = gl_setup::init_webgl_ctx().unwrap();
         Self {
             prg_color_2d: webgl_prg::Color2D::new(&gl),
+            prg_color_2d_gradient: webgl_prg::Color2DGradient::new(&gl),
             gl: gl,
         }
     }
@@ -58,11 +59,18 @@ impl GlClient{
         self.prg_color_2d.render( 
                 &self.gl,
                 current_state.control_bottom,
-                // 0.,
                 current_state.control_top,
                 current_state.control_left,
                 current_state.control_right,
-                // 12.,
+                current_state.canvas_width,
+                current_state.canvas_height,
+        );
+        self.prg_color_2d_gradient.render(
+                &self.gl,
+                current_state.control_bottom,
+                current_state.control_top,
+                current_state.control_left,
+                current_state.control_right,
                 current_state.canvas_width,
                 current_state.canvas_height,
         );
