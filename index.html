@@ -10,8 +10,9 @@
   <body>
     <section>
       <div id="input-test">
-        <h1>Write something to send to wasm</h1>
+        <h1>Hello world to wasm using RUST and WebGL</h1>
         <div>        
+          In this section you can write an string that will be sent to the RUST function `greet` that will call the function alert from the browser.
           <label for="ftext">Greet:</label><br>
           <input type="text" id="text" name="text"><br>
           <button id="submit">Submit</button>
@@ -20,6 +21,8 @@
     </section>
     <section>
       <div id="2d-controls">
+        This section shows a simple HTML5 canvas that will be manipulated from RUST using WebGL. The canvas will show two figures, a simple triangle with a solid color, and a polygon with some gradients using the colors from the corresponding inputs.
+
         <h3>Pick some controls for WebGL rendering, alpha changes are not allowed</h3>
         <i class="fas fa-caret-down"></i>
         <input type="color" id="triangle" value="#0101A0">
@@ -32,7 +35,7 @@
       </div>
       <canvas id="mainCanvas"></canvas>
     </section>
-    <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
+    <noscript>This page contains web-assembly and javascript content, please enable javascript in your browser.</noscript>
     <!-- <script src="./bootstrap.js"></script> -->
   </body>
 </html>
