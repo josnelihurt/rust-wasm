@@ -1,5 +1,6 @@
-// import * as wasm from "rust-wasm";
 
+//export {}
+import "./main.css"
 const rust = import('./pkg/rust_wasm_demo')
 const canvas = document.getElementById('mainCanvas')
 const gl = canvas.getContext('webgl', {antialias: true});
@@ -34,7 +35,7 @@ rust.then( m => {
 
     const FPS_THROTTLE = 1000.0 / 30.0; // ms/fps
     let lastDrawTime = -1;
-    glClient = new m.GlClient();
+    let glClient = new m.GlClient();
     const initialTime = Date.now();
     let lastWidth = 0;
     let lastHeight = 0;
@@ -53,11 +54,11 @@ rust.then( m => {
                 lastWidth = canvas.clientWidth;
                 lastHeight = canvas.clientHeight;
 
-                width = window.innerWidth;
+                let width = window.innerWidth;
                 canvas.width = width;
                 canvas.style.width = width;
 
-                height = window.innerHeight;
+                let height = window.innerHeight;
                 canvas.height = height;
                 canvas.style.height = height; 
 
