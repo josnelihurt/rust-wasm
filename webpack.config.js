@@ -7,10 +7,21 @@ module.exports = (env, args) => {
     const isProductionMode = (args.mode === 'production')
 
     return {
-        entry: './index.js',
+        entry: './index.ts',
+        module: {
+            rules: [
+            {
+                test: /\.css$/,
+                use: [
+                'style-loader',
+                'css-loader'
+                ]
+            }
+            ]
+        },
         output: {
             path: path.resolve(__dirname,'dist'),
-            filename: isProductionMode ? '[name].[contenthash].js' : '[name].[hash].js'
+            filename: isProductionMode ? 'prod-[name].[contenthash].js' : 'dev-[name].[hash].js'
         },
         plugins: [
             new HtmlWebpackPlugin({
