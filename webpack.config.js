@@ -7,7 +7,7 @@ module.exports = (env, args) => {
     const isProductionMode = (args.mode === 'production')
 
     return {
-        entry: './index.ts',
+        entry: './index.js',
         module: {
             rules: [
             {
