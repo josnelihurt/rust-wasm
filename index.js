@@ -13,20 +13,21 @@ function colorToSignedArrayValues(s) {
 }
 
 
-rust.then( m => {
+rust
+  .then((m) => {
     function getColorFromElement(name) {
-        let rgb = colorToSignedArrayValues(document.getElementById(name).value);
-        let color = new m.Color(rgb[0], rgb[1], rgb[2]);
-        return color;
+      let rgb = colorToSignedArrayValues(document.getElementById(name).value);
+      let color = new m.Color(rgb[0], rgb[1], rgb[2]);
+      return color;
     }
     document.getElementById("submit").addEventListener("click", () => {
-            var inText = document.getElementById("text").value;
-            m.greet(inText);
-        });
-    
-    if(!gl){
-        alert('WebGL is not working as expected!')
-        return;
+      var inText = document.getElementById("text").value;
+      m.greet(inText);
+    });
+
+    if (!gl) {
+      alert("WebGL is not working as expected!");
+      return;
     }
 
     // Moved to gl_setup.rs
@@ -40,47 +41,48 @@ rust.then( m => {
     let lastWidth = 0;
     let lastHeight = 0;
 
-    function render(){
-        window.requestAnimationFrame(render);
-        const currentTime = Date.now();
-        var updateData = new m.UpdateData();
+    function render() {
+      window.requestAnimationFrame(render);
+      const currentTime = Date.now();
+      var updateData = new m.UpdateData();
 
+      if (currentTime >= lastDrawTime + FPS_THROTTLE) {
+        lastDrawTime = currentTime;
 
-        if(currentTime >= lastDrawTime + FPS_THROTTLE){
-            lastDrawTime = currentTime;
+        //resize window handler
+        if (lastWidth != canvas.clientWidth || lastHeight != canvas.width) {
+          lastWidth = canvas.clientWidth;
+          lastHeight = canvas.clientHeight;
 
-            //resize window handler
-            if (lastWidth != canvas.clientWidth || lastHeight != canvas.width){
-                lastWidth = canvas.clientWidth;
-                lastHeight = canvas.clientHeight;
+          let width = window.innerWidth;
+          canvas.width = width;
+          canvas.style.width = width;
 
-                let width = window.innerWidth;
-                canvas.width = width;
-                canvas.style.width = width;
+          let height = window.innerHeight;
+          canvas.height = height;
+          canvas.style.height = height;
 
-                let height = window.innerHeight;
-                canvas.height = height;
-                canvas.style.height = height; 
-
-                gl.viewport(0, 0, width, height);
-            }
-
-            let elapseTime = currentTime - initialTime;
-
-            updateData.time = elapseTime;
-            updateData.width = canvas.clientWidth;
-            updateData.height = canvas.clientHeight;
-            updateData.triangle_color = getColorFromElement("triangle");
-            updateData.gradient0 = getColorFromElement("gradient0");
-            updateData.gradient1 = getColorFromElement("gradient1");
-            updateData.gradient2 = getColorFromElement("gradient2");
-            updateData.gradient3 = getColorFromElement("gradient3");
-            updateData.gradient4 = getColorFromElement("gradient4");
-            glClient.update(updateData);
-            glClient.render();
+          gl.viewport(0, 0, width, height);
         }
+
+        let elapseTime = currentTime - initialTime;
+
+        updateData.time = elapseTime;
+        updateData.width = canvas.clientWidth;
+        updateData.height = canvas.clientHeight;
+        updateData.triangle_color = getColorFromElement("triangle");
+        updateData.gradient0 = getColorFromElement("gradient0");
+        updateData.gradient1 = getColorFromElement("gradient1");
+        updateData.gradient2 = getColorFromElement("gradient2");
+        updateData.gradient3 = getColorFromElement("gradient3");
+        updateData.gradient4 = getColorFromElement("gradient4");
+        glClient.update(updateData);
+        glClient.render();
+      }
     }
 
     render();
-});
-
+  })
+  .catch(function (reason) {
+    console.error(reason);
+  });
