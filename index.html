@@ -7,32 +7,47 @@
     <title>Hello wasm-pack!</title>
   </head>
   <body>
+    <h1>Hello world WebGL from wasm/RUST</h1>
     <section>
-      <div id="input-test">
-        <h1>Hello world to wasm using RUST and WebGL</h1>
-        <div>        
-          In this section you can write an string that will be sent to the RUST function `greet` that will call the function alert from the browser.
-          <label for="ftext">Greet:</label><br>
-          <input type="text" id="text" name="text"><br>
-          <button id="submit">Submit</button>
-        </div>
-      </div>
-    </section>
-    <section>
-      <div id="2d-controls">
-        This section shows a simple HTML5 canvas that will be manipulated from RUST using WebGL. The canvas will show two figures, a simple triangle with a solid color, and a polygon with some gradients using the colors from the corresponding inputs.
+      
+      <div class="row">
+        <div class="column">
+          <div id="input-test">
+            <div>        
+              In this section you can write a string that will be sent to the RUST function `greet`, then
+              RUST will call the function alert from the browser. Pretty much a simple hello world.
+              <label for="ftext">Greet:</label><br>
+              <input type="text" id="text" name="text"><br>
+              <button id="submit">Submit</button>
+            </div>
+          </div>
+          <div id="2d-controls">
+            <h2>WebGL 2D example</h3>
+            This section shows an HTML5 canvas that will be manipulated from RUST using WebGL.
+            The canvas will show two figures, a simple triangle with solid color,
+            and a polygon with some gradients using the colors from the corresponding inputs.
 
-        <h3>Pick some controls for WebGL rendering, alpha changes are not allowed</h3>
-        <i class="fas fa-caret-down"></i>
-        <input type="color" id="triangle" value="#0101A0">
+            <h3>Pick some controls for WebGL rendering, alpha changes are not allowed</h3>
+            <i class="fas fa-caret-down"></i>
+            <input type="color" id="triangle" value="#0101A0">
+            
+            <input type="color" id="gradient0" value="#ff00d7">
+            <input type="color" id="gradient1" value="#ff0000">
+            <input type="color" id="gradient2" value="#ffff00">
+            <input type="color" id="gradient3" value="#00FF00">
+            <input type="color" id="gradient4" value="#00FFFF">
+          </div>
+          <canvas class="webGLCanvas" id="canvas2D"></canvas>
+        </div>
         
-        <input type="color" id="gradient0" value="#ff00d7">
-        <input type="color" id="gradient1" value="#ff0000">
-        <input type="color" id="gradient2" value="#ffff00">
-        <input type="color" id="gradient3" value="#00FF00">
-        <input type="color" id="gradient4" value="#00FFFF">
+        <div class="column">
+          <h2>WebGL 3D example</h3>
+            This sections shows an HTML5 canvas that will be manipulated from RUST using WebGL.
+            Please drag to move the object inside the canvas
+            <canvas class="webGLCanvas" id="canvas3D"></canvas>
+        </div>
+
       </div>
-      <canvas id="mainCanvas"></canvas>
     </section>
     <noscript>This page contains web-assembly and javascript content, please enable javascript in your browser.</noscript>
     <!-- <script src="./bootstrap.js"></script> -->

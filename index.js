@@ -2,8 +2,10 @@
 //export {}
 import "./main.css"
 const rust = import('./pkg/rust_wasm_demo')
-const canvas = document.getElementById('mainCanvas')
+const canvas = document.getElementById('canvas2D')
+const canvas3D = document.getElementById('canvas3D')
 const gl = canvas.getContext('webgl', {antialias: true});
+const gl3D = canvas3D.getContext('webgl', {antialias: true});
 
 function colorToSignedArrayValues(s) {
     let r = parseInt(s.substr(1, 2), 16);
@@ -36,7 +38,8 @@ rust
 
     const FPS_THROTTLE = 1000.0 / 30.0; // ms/fps
     let lastDrawTime = -1;
-    let glClient = new m.GlClient();
+    let glClient = new m.GlClient('canvas2D');
+    let glClient3D = new m.GlClient('canvas3D');
     const initialTime = Date.now();
     let lastWidth = 0;
     let lastHeight = 0;
@@ -56,13 +59,18 @@ rust
 
           let width = window.innerWidth;
           canvas.width = width;
+          canvas3D.width = width;
           canvas.style.width = width;
+          canvas3D.style.width = width;
 
           let height = window.innerHeight;
           canvas.height = height;
+          canvas3D.height = height;
           canvas.style.height = height;
+          canvas3D.style.height = height;
 
           gl.viewport(0, 0, width, height);
+          gl3D.viewport(0, 0, width, height);
         }
 
         let elapseTime = currentTime - initialTime;
@@ -76,6 +84,9 @@ rust
         updateData.gradient2 = getColorFromElement("gradient2");
         updateData.gradient3 = getColorFromElement("gradient3");
         updateData.gradient4 = getColorFromElement("gradient4");
+        // console.log(updateData);
+        glClient3D.update(updateData);
+        glClient3D.render();
         glClient.update(updateData);
         glClient.render();
       }

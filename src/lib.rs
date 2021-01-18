@@ -30,6 +30,7 @@ pub fn greet(msg: &str) {
 
 
 #[wasm_bindgen]
+#[derive(Debug, Copy, Clone)]
 pub struct UpdateData {
     pub time: f32,
     pub width: f32,
@@ -72,10 +73,10 @@ pub struct GlClient {
 #[wasm_bindgen]
 impl GlClient{
     #[wasm_bindgen(constructor)]
-    pub fn new() -> Self{
-        log("New GlClient");
+    pub fn new(canvas_name : &str) -> Self{
+        log(format!("New GlClient for {}", canvas_name).as_str());
         console_error_panic_hook::set_once();
-        let gl = gl_setup::init_webgl_ctx().unwrap();
+        let gl = gl_setup::init_webgl_ctx(canvas_name).unwrap();
         Self {
             data: UpdateData::new(),
             prg_color_2d: webgl_prg::Color2D::new(&gl),
@@ -84,10 +85,10 @@ impl GlClient{
         }
     }
     
-    pub fn update(&mut self, data: UpdateData) -> Result<(), JsValue>{
+    pub fn update(&mut self, data: &UpdateData) -> Result<(), JsValue>{
         // log(format!("{} update width {} height {}", time, width, height).as_str());
         app_state::update_dynamic_data(data.time, data.width, data.height);
-        self.data = data;
+        self.data = data.clone();
         Ok(())
     }
 
@@ -107,12 +108,47 @@ impl GlClient{
                 self.data.triangle_color,
                 // Color::new(100,100,100),
             );
-        let gradients: [Color; 5] = [
-            self.data.gradient0,
-            self.data.gradient1,
-            self.data.gradient2,
-            self.data.gradient3,
-            self.data.gradient4,
+        let gradients: [&Color; 5] = [
+            &self.data.gradient0,
+            &self.data.gradient1,
+            &self.data.gradient2,
+            &self.data.gradient3,
+            &self.data.gradient4,
+            ];
+        self.prg_color_2d_gradient.render(
+                &self.gl,
+                current_state.control_bottom,
+                current_state.control_top,
+                current_state.control_left,
+                current_state.control_right,
+                current_state.canvas_width,
+                current_state.canvas_height,
+                gradients,
+        );
+    }
+
+    pub fn render3d(&self){
+        self.gl.clear(Gl::COLOR_BUFFER_BIT | Gl::COLOR_BUFFER_BIT);
+
+        let current_state = app_state::get_current_state();
+
+        self.prg_color_2d.render( 
+                &self.gl,
+                current_state.control_bottom,
+                current_state.control_top,
+                current_state.control_left,
+                current_state.control_right,
+                current_state.canvas_width,
+                current_state.canvas_height,
+                self.data.triangle_color,
+                // Color::new(100,100,100),
+            );
+        let gradients: [&Color; 5] = [
+            &self.data.gradient0,
+            &self.data.gradient1,
+            &self.data.gradient2,
+            &self.data.gradient3,
+            &self.data.gradient4,
             ];
         self.prg_color_2d_gradient.render(
                 &self.gl,

@@ -93,7 +93,7 @@ impl Color2DGradient {
         right: f32,
         canvas_width: f32,
         canvas_height: f32,
-        color: [Color; 5],
+        color: [&Color; 5],
     ) {
         gl.use_program(Some(&self.program));
 
